@@ -1,7 +1,4 @@
-'use strict';
+import navigationService from './services/navigationService';
+import './index.scss';
 
-import News from './components/News/NewsController';
-
-new News('.news-content').render();
-
-export default {};
+navigationService.initialize();

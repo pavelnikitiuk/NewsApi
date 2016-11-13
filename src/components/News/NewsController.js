@@ -1,14 +1,19 @@
 import template from './News.mustache';
 import {addHtml} from './../../utils/domManipulation';
+import apiService from './../../services/apiService';
 
 export default class NewsControoller {
-    constructor(elementSlector) {
-        this._elementSelector = elementSlector;
+    constructor() {
     }
 
-    render(){
+    render(elementSelector){
         const templateHtml = template.render();
-        addHtml(this._elementSelector, templateHtml);
+        addHtml(elementSelector, templateHtml);
+        this._loadData();
+    }
+
+    _loadData() {
+        apiService.getSources().then((t) => console.log(t));
     }
 
 }

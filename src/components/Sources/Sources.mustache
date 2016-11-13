@@ -1,0 +1,11 @@
+<ul class="sources">
+    {{#sources}}
+    <li class="source" data-id="{{id}}">
+        <h5 class="source__header">{{{name}}}</h1>
+        <div class="source__content">
+            <img class="source__content-logo" {{#urlsToLogos}} src="{{small}}" {{/urlsToLogos}} alt="{{name}}"/>
+            <h3 class="source__content-description">{{{description}}}</h3>
+        </div>
+    </li>
+    {{/sources}}
+</ul>
