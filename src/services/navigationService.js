@@ -10,24 +10,25 @@ class navigationService {
     initialize() {
         const href = location.hash;
         this.navigateTo(href);
-         window.addEventListener('popstate', this._onStateChangedHandler.bind(this), false);
+        window.addEventListener('popstate', this._onStateChangedHandler.bind(this), false);
     }
 
     navigateTo(hash, updateState = true) {
-        const controller = matchRoutes(this._routes,hash);
+        const controller = matchRoutes(this._routes, hash);
         if (controller) {
+            if (updateState) {
+                history.pushState({
+                    hash,
+                }, null, hash);
+            }
             this._controller = new controller();
             this._controller.render(this._selector);
         } else {
             this.navigateTo(this._hash);
         }
-        if(updateState) {
-            history.pushState({
-                hash,
-            }, null, hash);
-        }
+
     }
-    
+
     _onStateChangedHandler() {
         if (event && event.state) {
             this.navigateTo(event.state.hash, false);

@@ -1,9 +1,10 @@
 export default class apiRequesBuilder {
-    constructor({method = 'GET', query = [], url = '', responseType = 'json'} = {}) {
+    constructor({method = 'GET', query = [], url = '', responseType = 'json', mode = 'cors',} = {}) {
         this._method = method;
         this._query = query;
         this._url = url;
         this._responseType = responseType;
+        this._mode = mode;
     }
 
     addMethod(method) {
@@ -30,6 +31,7 @@ export default class apiRequesBuilder {
         const url = this._createUrl();
         const options = {
             method: this._method,
+            mode: this._mode,
         };
         return fetch(url, options).then(this._transformResponseToType.bind(this));
     }

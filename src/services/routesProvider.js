@@ -1,10 +1,10 @@
-import News from './../components/News/NewsController';
+import Articles from './../components/Articles/ArticlesController';
 import Sources from './../components/Sources/SourcesController';
 
 export function routesFactory() {
     return new Set([
         { path: '#sources', controller: Sources },
-        {path: /#news\/.+/, controller: News},
+        {path: /#news\/.+/, controller: Articles},
     ]);
 }
 

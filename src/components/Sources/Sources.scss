@@ -1,12 +1,12 @@
 .sources {
     display: flex;
     flex-flow: row wrap;
-    
+    justify-content: center;
 }
 
 .source {
-    flex-basis: 500px;
-    height: 100px;
+    flex-basis: 350px;
+    height: 200px;
     list-style: none;
     
     margin: 30px;
@@ -28,7 +28,8 @@
         align-self: center;
         
         &-logo {
-            max-height: 50px;
+            max-height: 30px;
+            max-width: 100px;
             order: 2;
             margin-left: 20px;
         }
@@ -36,7 +37,7 @@
         &-description{
             display: -webkit-box;
             max-width: 400px;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 7;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;

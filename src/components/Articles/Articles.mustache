@@ -1,0 +1,12 @@
+<button class="back-button">&crarr;</button>
+<ul class="articles">
+    {{#articles}}
+    <li class="article" data-href={{url}}>
+        <h5 class="article__time">{{{timeAgo}}} ago</h5>
+        <img class="article__image" src="{{urlToImage}}" alt={{title}} />
+        <h1 class="article__title">{{{title}}}</h1>
+        <h3 class="article__description">{{{description}}}</h3>
+        <a class="article__more" href="{{url}}">Read more</a>
+    </li>
+    {{/articles}}
+</div>
