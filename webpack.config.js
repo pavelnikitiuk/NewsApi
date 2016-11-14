@@ -5,7 +5,7 @@ module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: path.resolve(__dirname, 'src', 'index.js'),
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'docs'),
         filename: 'bundle.js',
     },
     module: {
@@ -29,7 +29,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, 'dist', 'index.html'),
+            filename: path.resolve(__dirname, 'docs', 'index.html'),
             title: 'News API',
             template: path.resolve(__dirname, 'src', 'index.html'),
         })
