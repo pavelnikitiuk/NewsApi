@@ -4,7 +4,7 @@ import Sources from './../components/Sources/SourcesController';
 export function routesFactory() {
     return new Set([
         { path: '#sources', controller: Sources },
-        {path: /#news\/.+/, controller: Articles},
+        { path: /#news\/.+/, controller: Articles },
     ]);
 }
 

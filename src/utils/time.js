@@ -1,8 +1,8 @@
 export function timeAgo(date) {
 
-    var seconds = Math.floor((new Date() - date) / 1000);
+    const seconds = Math.floor((new Date() - date) / 1000);
 
-    var interval = Math.floor(seconds / 31536000);
+    let interval = Math.floor(seconds / 31536000);
 
     if (interval > 1) {
         return interval + " years";

@@ -5,6 +5,13 @@ import './Articles.scss';
 import {timeAgo} from './../../utils/time';
 import navigationService from './../../services/navigationService'
 
+const hrefAttr = 'data-href';
+const baseClassName = 'article';
+const baseSelector = `.${baseClassName}`;
+const hrefClassName = `${baseClassName}__more`;
+const backButtonSelector = '.back-button';
+const backButtonRoute = '#sources';
+
 export default class ArticlesControoller {
     constructor() {
         this._id = location.hash.split('/')[1];
@@ -21,20 +28,17 @@ export default class ArticlesControoller {
 
     _showArticles(response) {
         response.articles.forEach((article) => article.timeAgo = timeAgo(new Date(article.publishedAt)));
-        this._articles = response.articles;
         const templateHtml = template.render(response);
         addHtml(this._selecotor, templateHtml);
-        subscribeOnClick('.article',this._subscribeOnClick.bind(this));
-        subscribeOnClick('.back-button',() => navigationService.navigateTo('#sources'));
+        subscribeOnClick(baseSelector, this._onArticleClick.bind(this));
+        subscribeOnClick(backButtonSelector, () => navigationService.navigateTo(backButtonRoute));
     }
 
-     _subscribeOnClick({currentTarget, target}) {
-        const href = currentTarget.getAttribute('data-href');
-        if(target.className !== 'article__more') {
+     _onArticleClick({currentTarget, target}) {
+        const href = currentTarget.getAttribute(hrefAttr);
+        if(target.className !== hrefClassName) {
             const win = window.open(href, '_blank');
             win.focus();
         }
-        
     }
-
 }

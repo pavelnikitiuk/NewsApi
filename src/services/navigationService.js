@@ -29,7 +29,7 @@ class navigationService {
 
     }
 
-    _onStateChangedHandler() {
+    _onStateChangedHandler(event) {
         if (event && event.state) {
             this.navigateTo(event.state.hash, false);
         }
