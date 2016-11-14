@@ -1,3 +1,9 @@
+@import "./../../index.scss";
+
+$font-size: 20px;
+$line-height: 1.4;
+$lines-to-show: 6;
+
 .sources {
     display: flex;
     flex-flow: row wrap;
@@ -13,7 +19,7 @@
     padding: 15px;
     cursor: pointer;
     background: #fff;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: $font-family;
     
 
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -36,8 +42,9 @@
 
         &-description{
             display: -webkit-box;
-            max-width: 400px;
-            -webkit-line-clamp: 7;
+            font-size: $font-size;
+            line-height: $line-height;
+            -webkit-line-clamp: $lines-to-show;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;

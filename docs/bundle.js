@@ -136,7 +136,7 @@
 
 	var _ArticlesController2 = _interopRequireDefault(_ArticlesController);
 
-	var _SourcesController = __webpack_require__(17);
+	var _SourcesController = __webpack_require__(16);
 
 	var _SourcesController2 = _interopRequireDefault(_SourcesController);
 
@@ -201,7 +201,7 @@
 
 	__webpack_require__(12);
 
-	var _time = __webpack_require__(16);
+	var _time = __webpack_require__(15);
 
 	var _navigationService = __webpack_require__(1);
 
@@ -1317,7 +1317,7 @@
 	var content = __webpack_require__(13);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(15)(content, {});
+	var update = __webpack_require__(14)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1337,74 +1337,18 @@
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(14)();
+	exports = module.exports = __webpack_require__(20)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".back-button {\n  background: transparent;\n  position: fixed;\n  border: none;\n  top: 20px;\n  left: 20px;\n  font-size: 50px; }\n\n.articles {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: center; }\n\n.article {\n  display: flex;\n  flex-basis: 400px;\n  flex-flow: column;\n  padding: 15px;\n  margin: 30px;\n  cursor: pointer;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }\n  .article:hover {\n    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n  .article__image {\n    width: 400px; }\n  .article__time {\n    align-self: flex-end;\n    margin-top: 0; }\n", ""]);
+	exports.push([module.id, "body {\n  background: #F5F5F5; }\n\n.newsapi {\n  float: right;\n  margin: 40px;\n  font-size: 20px; }\n\n.back-button {\n  background: transparent;\n  position: fixed;\n  border: none;\n  top: 20px;\n  left: 20px;\n  font-size: 50px; }\n\n.articles {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: center; }\n\n.article {\n  display: flex;\n  flex-basis: 400px;\n  flex-flow: column;\n  padding: 15px;\n  margin: 30px;\n  cursor: pointer;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }\n  .article:hover {\n    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n  .article__image {\n    width: 100%; }\n  .article__time {\n    align-self: flex-end;\n    margin-top: 0; }\n", ""]);
 
 	// exports
 
 
 /***/ },
 /* 14 */
-/***/ function(module, exports) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-
-/***/ },
-/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -1656,7 +1600,7 @@
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1694,7 +1638,7 @@
 	}
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1705,7 +1649,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _Sources = __webpack_require__(18);
+	var _Sources = __webpack_require__(17);
 
 	var _Sources2 = _interopRequireDefault(_Sources);
 
@@ -1715,7 +1659,7 @@
 
 	var _apiService2 = _interopRequireDefault(_apiService);
 
-	__webpack_require__(19);
+	__webpack_require__(18);
 
 	var _navigationService = __webpack_require__(1);
 
@@ -1764,23 +1708,23 @@
 	exports.default = SourcesController;
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var H = __webpack_require__(5);
 	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<ul class=\"sources\">\r");t.b("\n" + i);if(t.s(t.f("sources",c,p,1),c,p,0,38,394,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("    <li class=\"source\" data-id=\"");t.b(t.v(t.f("id",c,p,0)));t.b("\">\r");t.b("\n" + i);t.b("        <h5 class=\"source__header\">");t.b(t.t(t.f("name",c,p,0)));t.b("</h1>\r");t.b("\n" + i);t.b("        <div class=\"source__content\">\r");t.b("\n" + i);t.b("            <img class=\"source__content-logo\" ");if(t.s(t.f("urlsToLogos",c,p,1),c,p,0,235,252,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(" src=\"");t.b(t.v(t.f("small",c,p,0)));t.b("\" ");});c.pop();}t.b(" alt=\"");t.b(t.v(t.f("name",c,p,0)));t.b("\"/>\r");t.b("\n" + i);t.b("            <h3 class=\"source__content-description\">");t.b(t.t(t.f("description",c,p,0)));t.b("</h3>\r");t.b("\n" + i);t.b("        </div>\r");t.b("\n" + i);t.b("    </li>\r");t.b("\n" + i);});c.pop();}t.b("</ul>\r");t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "<ul class=\"sources\">\r\n    {{#sources}}\r\n    <li class=\"source\" data-id=\"{{id}}\">\r\n        <h5 class=\"source__header\">{{{name}}}</h1>\r\n        <div class=\"source__content\">\r\n            <img class=\"source__content-logo\" {{#urlsToLogos}} src=\"{{small}}\" {{/urlsToLogos}} alt=\"{{name}}\"/>\r\n            <h3 class=\"source__content-description\">{{{description}}}</h3>\r\n        </div>\r\n    </li>\r\n    {{/sources}}\r\n</ul>\r\n", H);return T; }();
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(20);
+	var content = __webpack_require__(19);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(15)(content, {});
+	var update = __webpack_require__(14)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1797,17 +1741,73 @@
 	}
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(14)();
+	exports = module.exports = __webpack_require__(20)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".sources {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: center; }\n\n.source {\n  flex-basis: 350px;\n  height: 200px;\n  list-style: none;\n  margin: 30px;\n  padding: 15px;\n  cursor: pointer;\n  background: #fff;\n  font-family: 'Open Sans', Arial, sans-serif;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }\n  .source:hover {\n    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n  .source__content {\n    display: flex;\n    align-self: center; }\n    .source__content-logo {\n      max-height: 30px;\n      max-width: 100px;\n      order: 2;\n      margin-left: 20px; }\n    .source__content-description {\n      display: -webkit-box;\n      max-width: 400px;\n      -webkit-line-clamp: 7;\n      -webkit-box-orient: vertical;\n      overflow: hidden;\n      text-overflow: ellipsis; }\n  .source__header {\n    margin: 0; }\n", ""]);
+	exports.push([module.id, "body {\n  background: #F5F5F5; }\n\n.newsapi {\n  float: right;\n  margin: 40px;\n  font-size: 20px; }\n\n.sources {\n  display: flex;\n  flex-flow: row wrap;\n  justify-content: center; }\n\n.source {\n  flex-basis: 350px;\n  height: 200px;\n  list-style: none;\n  margin: 30px;\n  padding: 15px;\n  cursor: pointer;\n  background: #fff;\n  font-family: \"Open Sans\", Arial, sans-serif;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }\n  .source:hover {\n    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }\n  .source__content {\n    display: flex;\n    align-self: center; }\n    .source__content-logo {\n      max-height: 30px;\n      max-width: 100px;\n      order: 2;\n      margin-left: 20px; }\n    .source__content-description {\n      display: -webkit-box;\n      font-size: 20px;\n      line-height: 1.4;\n      -webkit-line-clamp: 6;\n      -webkit-box-orient: vertical;\n      overflow: hidden;\n      text-overflow: ellipsis; }\n  .source__header {\n    margin: 0; }\n", ""]);
 
 	// exports
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
 
 
 /***/ },
@@ -1820,7 +1820,7 @@
 	var content = __webpack_require__(22);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(15)(content, {});
+	var update = __webpack_require__(14)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1840,7 +1840,7 @@
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(14)();
+	exports = module.exports = __webpack_require__(20)();
 	// imports
 
 
