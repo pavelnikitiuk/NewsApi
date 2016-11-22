@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
-    entry: ['babel-polyfill','whatwg-fetch', path.resolve(__dirname, 'src', 'index.js')],
+    entry: ['babel-plugin', 'babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'src', 'index.js')],
     output: {
         path: path.resolve(__dirname, 'docs'),
         filename: 'bundle.js',
@@ -20,6 +20,7 @@ module.exports = {
             loader: 'babel',
             exclude: /(node_modules|bower_components)/,
             query: {
+                plugins: ['babel-plugin'],
                 presets: ['es2015'],
             },
         },
