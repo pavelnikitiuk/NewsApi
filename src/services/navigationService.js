@@ -22,7 +22,7 @@ class navigationService {
                 }, null, hash);
             }
             controllerFactory((Controller) => {
-                this._controller = new Controller();
+                this._controller = new Controller.default();
                 this._controller.render(this._selector);
             })
         } else {

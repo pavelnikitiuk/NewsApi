@@ -13,7 +13,7 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, 'docs'),
-        // publicPath: '/',
+        publicPath: env == 'development' ? '/' : false,
         filename: 'bundle.js',
     },
 
@@ -42,7 +42,7 @@ module.exports = {
             title: 'News API',
             template: path.resolve(__dirname, 'src', 'index.html'),
         }),
-        // new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin(),
         new webpack.DefinePlugin({
             'enviroment': env,
         }),

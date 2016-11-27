@@ -3,11 +3,14 @@
 
 export function routesFactory() {
     return new Set([
-        { // TODO: create common part
+        {
             path: '#sources',
-            controller: (callback) => require(['./../components/Sources/SourcesController'], (SourcesController) => callback(SourcesController.default)),
+            controller: (callback) => require(['./../components/Sources/SourcesController'], callback),
         },
-        { path: /#news\/.+/, controller: (callback) => require(['./../components/Articles/ArticlesController'], (ArticlesController) => callback(ArticlesController.default)) },
+        {
+            path: /#news\/.+/,
+            controller: (callback) => require(['./../components/Articles/ArticlesController'], callback),
+        },
     ]);
 }
 
