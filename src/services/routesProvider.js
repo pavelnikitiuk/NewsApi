@@ -1,10 +1,13 @@
-import Articles from './../components/Articles/ArticlesController';
-import Sources from './../components/Sources/SourcesController';
+// import Articles from './../components/Articles/ArticlesController';
+// import Sources from './../components/Sources/SourcesController';
 
 export function routesFactory() {
     return new Set([
-        { path: '#sources', controller: Sources },
-        { path: /#news\/.+/, controller: Articles },
+        { // TODO: create common part
+            path: '#sources',
+            controller: (callback) => require(['./../components/Sources/SourcesController'], (SourcesController) => callback(SourcesController.default)),
+        },
+        { path: /#news\/.+/, controller: (callback) => require(['./../components/Articles/ArticlesController'], (ArticlesController) => callback(ArticlesController.default)) },
     ]);
 }
 

@@ -14,15 +14,17 @@ class navigationService {
     }
 
     navigateTo(hash, updateState = true) {
-        const controller = matchRoutes(this._routes, hash);
-        if (controller) {
+        const controllerFactory = matchRoutes(this._routes, hash);
+        if (controllerFactory) {
             if (updateState) {
                 history.pushState({
                     hash,
                 }, null, hash);
             }
-            this._controller = new controller();
-            this._controller.render(this._selector);
+            controllerFactory((Controller) => {
+                this._controller = new Controller();
+                this._controller.render(this._selector);
+            })
         } else {
             this.navigateTo(this._hash);
         }
