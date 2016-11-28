@@ -12,6 +12,9 @@ const baseClassName = 'article';
 const baseSelector = `.${baseClassName}`;
 const hrefClassName = `${baseClassName}__more`;
 const backButtonSelector = '.back-button';
+const imageSelector = `${baseSelector}__image`;
+const titleSelector = `${baseSelector}__title`;
+const navigationSelectors = [imageSelector, titleSelector];
 const backButtonRoute = '#sources';
 
 export default class ArticlesControoller extends BaseController {
@@ -43,9 +46,10 @@ export default class ArticlesControoller extends BaseController {
 
     _onArticleClick({currentTarget, target}) {
         const href = currentTarget.getAttribute(hrefAttr);
-        if (target.className !== hrefClassName) {
+        if (navigationSelectors.indexOf(target.className) >= 0) {
             const win = window.open(href, '_blank');
             win.focus();
         }
+        
     }
 }

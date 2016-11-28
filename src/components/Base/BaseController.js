@@ -19,8 +19,8 @@ export default class BaseController extends Abstract {
 
 	_onData(response) {
 		this._spinner.hide();
-		if (typeof (this.prcessWithResponse) === "function")
-			this.prcessWithResponse(response);
+		if (typeof (this.processWithResponse) === "function")
+			this.processWithResponse(response);
 		const templateHtml = this.template.render(response);
 		addHtml(this._selecotor, templateHtml);
 		this.bindActions();

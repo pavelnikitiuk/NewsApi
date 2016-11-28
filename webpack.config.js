@@ -42,7 +42,13 @@ module.exports = {
             title: 'News API',
             template: path.resolve(__dirname, 'src', 'index.html'),
         }),
-        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false,
+                }
+            }
+        ),
+        new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             'enviroment': env,
         }),
