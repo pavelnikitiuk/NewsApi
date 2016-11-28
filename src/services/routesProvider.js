@@ -11,6 +11,10 @@ export function routesFactory() {
             path: /#news\/.+/,
             controller: (callback) => require(['./../components/Articles/ArticlesController'], callback),
         },
+        {
+            path: '#test',
+            controller: (callback) => require(['./../components/Test/TestController'], callback),
+        }
     ]);
 }
 

@@ -33,6 +33,10 @@ module.exports = {
         {
             test: /\.scss$/,
             loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version", "IE 10"]}!sass-loader',
+        },
+        {
+            test: /\.json$/,
+            loader: 'json-loader!webpack-loader',
         }],
     },
 
