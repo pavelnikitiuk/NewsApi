@@ -1,25 +1,29 @@
-import template from './Sources.mustache';
-import {addHtml, subscribeOnClick} from './../../utils/domManipulation';
+import { subscribeOnClick } from './../../utils/domManipulation';
 import apiService from './../../services/apiService';
-import './Sources.scss';
 import navigationService from './../../services/navigationService';
+import BaseController from './../Base/BaseController';
+
+import template from './Sources.mustache';
+import './Sources.scss';
 
 const baseClassName = 'source';
 const baseSelector = `.${baseClassName}`;
 
-export default class SourcesController {
-    render(elementSelector){
-        this._selecotor = elementSelector;
-        this._loadData().then(this._showSources.bind(this));
+export default class SourcesController extends BaseController {
+
+    render(elementSelector) {
+        super.render(elementSelector);
     }
 
-    _loadData() {
+    get template() {
+        return template;
+    }
+
+    loadData() {
         return apiService.getSources();
     }
 
-    _showSources(response) {
-        const templateHtml = template.render(response);
-        addHtml(this._selecotor, templateHtml);
+    bindActions() {
         subscribeOnClick(baseSelector, this._onSourceClick.bind(this));
     }
 
@@ -27,5 +31,4 @@ export default class SourcesController {
         const id = currentTarget.getAttribute('data-id');
         navigationService.navigateTo(`#news/${id}`);
     }
-
 }

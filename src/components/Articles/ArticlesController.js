@@ -1,9 +1,11 @@
-import template from './Articles.mustache';
-import {addHtml, subscribeOnClick} from './../../utils/domManipulation';
+import { subscribeOnClick } from './../../utils/domManipulation';
 import apiService from './../../services/apiService';
+import { timeAgo } from './../../utils/time';
+import navigationService from './../../services/navigationService';
+import BaseController from './../Base/BaseController';
+
+import template from './Articles.mustache';
 import './Articles.scss';
-import {timeAgo} from './../../utils/time';
-import navigationService from './../../services/navigationService'
 
 const hrefAttr = 'data-href';
 const baseClassName = 'article';
@@ -12,31 +14,36 @@ const hrefClassName = `${baseClassName}__more`;
 const backButtonSelector = '.back-button';
 const backButtonRoute = '#sources';
 
-export default class ArticlesControoller {
+export default class ArticlesControoller extends BaseController {
     constructor() {
+        super();
         this._id = location.hash.split('/')[1];
     }
 
-    render(elementSelector){
-        this._selecotor = elementSelector;
-        this._loadData().then(this._showArticles.bind(this));
+    render(elementSelector) {
+        super.render(elementSelector);
     }
 
-    _loadData() {
+    get template() {
+        return template;
+    }
+
+    loadData() {
         return apiService.getArticles(this._id);
     }
 
-    _showArticles(response) {
+    processWithResponse(response) {
         response.articles.forEach((article) => article.timeAgo = timeAgo(new Date(article.publishedAt)));
-        const templateHtml = template.render(response);
-        addHtml(this._selecotor, templateHtml);
+    }
+
+    bindActions() {
         subscribeOnClick(baseSelector, this._onArticleClick.bind(this));
         subscribeOnClick(backButtonSelector, () => navigationService.navigateTo(backButtonRoute));
     }
 
-     _onArticleClick({currentTarget, target}) {
+    _onArticleClick({currentTarget, target}) {
         const href = currentTarget.getAttribute(hrefAttr);
-        if(target.className !== hrefClassName) {
+        if (target.className !== hrefClassName) {
             const win = window.open(href, '_blank');
             win.focus();
         }

@@ -1,13 +1,22 @@
 export function addHtml(querySelector, html) {
-    const elements = document.querySelectorAll(querySelector);
-    for(const element of elements) {
-        element.innerHTML = html;
-    }
+    manipulateWithElements(querySelector, (element) => element.innerHTML = html);
 }
 
 export function subscribeOnClick(querySelector, callback){
+    manipulateWithElements(querySelector, (element) => element.onclick = callback);
+}
+
+export function remove(elentSelector) {
+    manipulateWithElements(querySelector, (element) => element.parentNode.removeChild(element));
+}
+
+export function manipulateWithElements(querySelector, callback) {
     const elements = document.querySelectorAll(querySelector);
     for(const element of elements) {
-        element.onclick = callback;
+        callback(element);
     }
+}
+
+export function find(querySelector) {
+    return document.querySelectorAll(querySelector);
 }
