@@ -3,18 +3,25 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const PolyfillsPlugin = require('webpack-polyfills-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const env = process.env.NODE_ENV || 'development';
+
+const paths = {
+    sources: path.resolve(__dirname, 'src', 'components', 'Sources', 'SourcesController.js'),
+    articles: path.resolve(__dirname, 'src', 'components', 'Articles', 'ArticlesController.js'),
+}
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
 
-    entry: ['babel-polyfill','whatwg-fetch', path.resolve(__dirname, 'src', 'index.js')],
+    entry: ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'src', 'index.js')],
 
     output: {
         path: path.resolve(__dirname, 'docs'),
         publicPath: env == 'development' ? '/' : false,
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
     },
 
     module: {
@@ -37,29 +44,36 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.NoErrorsPlugin(),
+        new CleanWebpackPlugin('docs'),
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname, 'docs', 'index.html'),
             title: 'News API',
             template: path.resolve(__dirname, 'src', 'index.html'),
         }),
         new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false,
-                }
+            compress: {
+                warnings: false,
             }
-        ),
-        new webpack.NoErrorsPlugin(),
+        }),
         new webpack.DefinePlugin({
             'enviroment': env,
         }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'main',
+            children: true,
+            minChunks: 2,
+            async: true,
+        })
     ],
-
 
     devServer: {
         port: 3000,
         contentBase: path.join(__dirname, 'docs'),
         hot: true,
     },
+
     root: [path.resolve('./')],
+
     devtool: env == 'development' ? 'source-map': false,
 };

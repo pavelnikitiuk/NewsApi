@@ -1,15 +1,18 @@
-// import Articles from './../components/Articles/ArticlesController';
-// import Sources from './../components/Sources/SourcesController';
-
 export function routesFactory() {
     return new Set([
         {
             path: '#sources',
-            controller: (callback) => require(['./../components/Sources/SourcesController'], callback),
+            controller: (callback) => require.ensure (
+                ['./../components/Sources/SourcesController'],
+                (require) => callback(require('./../components/Sources/SourcesController')),
+                '1'),
         },
         {
             path: /#news\/.+/,
-            controller: (callback) => require(['./../components/Articles/ArticlesController'], callback),
+            controller: (callback) => require.ensure (
+                ['./../components/Articles/ArticlesController'],
+                (require) => callback(require('./../components/Articles/ArticlesController')),
+                '2'),
         },
     ]);
 }
