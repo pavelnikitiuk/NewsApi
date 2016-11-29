@@ -38,4 +38,4 @@ class navigationService {
     }
 }
 
-export default new navigationService(routesFactory(), '.news-content', '#sources');
+export default new navigationService(routesFactory(), '.news-content', '#test');
