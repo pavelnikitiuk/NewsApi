@@ -23,6 +23,10 @@ export default class ArticlesControoller extends BaseController {
         this._id = location.hash.split('/')[1];
     }
 
+    destructor() {
+        
+    }
+
     render(elementSelector) {
         super.render(elementSelector);
     }

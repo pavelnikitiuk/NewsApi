@@ -1,7 +1,7 @@
 import Abstract from './AbstractClass';
 import Spinner from './../Spinner/Spinner';
 import { addHtml, subscribeOnClick } from './../../utils/domManipulation';
-const abstractMethods = ['loadData', 'bindActions'];
+const abstractMethods = ['loadData', 'bindActions', 'destructor'];
 const abstractGetters = ['template'];
 
 
@@ -14,10 +14,10 @@ export default class BaseController extends Abstract {
 		this._selecotor = elementSelector;
 		this._spinner = new Spinner(this._selecotor);
 		this._spinner.show();
-		this.loadData().then(this._onData.bind(this));
+		this.loadData();
 	}
 
-	_onData(response) {
+	onDataRecived(response) {
 		this._spinner.hide();
 		if (typeof (this.processWithResponse) === "function")
 			this.processWithResponse(response);
