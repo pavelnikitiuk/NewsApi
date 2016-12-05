@@ -38,17 +38,17 @@ export default class ArticlesControoller {
 			this._spinner.show();
 		} else {
 			this._spinner.hide();
-			this.showArticles(model);
+			this._showArticles(model);
 		}
 	}
 
-	showArticles(model) {
+	_showArticles(model) {
 		const html = template.render(model);
 		addHtml(this._selecotor, html);
-		this.bindActions();
+		this._bindActions();
 	}
 
-	bindActions() {
+	_bindActions() {
 		subscribeOnClick(baseSelector, this._onArticleClick.bind(this));
 		subscribeOnClick(backButtonSelector, navigateToSources);
 	}

@@ -11,6 +11,7 @@ export default class Spinner {
 		this._rootSelector = elementSelector;
 		this._selector = `${this._selector} ${spinnerSelecor}`;
 	}
+
 	show() {
 		const elements = find(this._selector);
 		if (elements.length === 0) {

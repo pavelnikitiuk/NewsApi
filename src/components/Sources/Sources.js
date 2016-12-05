@@ -16,7 +16,7 @@ const selectSelector = '.select';
 export default class Sources {
 
 	constructor() {
-		this._onUpdateView = this.updateView.bind(this);
+		this._onUpdateView = this._updateView.bind(this);
 		this._select = new Select();
 		app.stores.SourceStore.addListener(this._onUpdateView);
 	}
@@ -32,17 +32,17 @@ export default class Sources {
 		getSources(app.stores.SourceStore.sources.category);
 	}
 
-	updateView(SourceStore) {
+	_updateView(SourceStore) {
 		const model = SourceStore.sources;
 		if (model.isLoading) {
 			this._spinner.show();
 		} else {
-			this.showSources(model);
+			this._showSources(model);
 			this._spinner.hide();
 		}
 	}
 
-	bindActions() {
+	_bindActions() {
 		delegateClick(baseSelector, sourceClassName, this._onSourceClick.bind(this));
 	}
 
@@ -51,10 +51,10 @@ export default class Sources {
 		navigateToArticles(id);
 	}
 
-	showSources(model) {
+	_showSources(model) {
 		const html = template.render(model);
 		addHtml(this._selecotor, html);
 		this._select.render(selectSelector);
-		this.bindActions();
+		this._bindActions();
 	}
 }
