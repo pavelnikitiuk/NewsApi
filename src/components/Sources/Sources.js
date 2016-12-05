@@ -18,10 +18,8 @@ export default class Sources {
 
     constructor() {
         this._onUpdateView = this.updateView.bind(this);
-        this._onSelectChangedHandler = this._onSelectChanged.bind(this);
         this._select = new Select();
         app.stores.SourceStore.addListener(this._onUpdateView);
-        app.stores.SelectStore.addListener(this._onSelectChangedHandler);
     }
 
     destructor() {
@@ -52,12 +50,6 @@ export default class Sources {
     _onSourceClick(target) {
         const id = target.getAttribute('data-id');
         navigateToArticles(id);
-    }
-
-    _onSelectChanged({select}) {
-        if(app.stores.SourceStore.sources.category === select.active)
-            return;
-        getSources(select.active);
     }
 
     showSources(model) {

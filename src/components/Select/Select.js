@@ -1,6 +1,7 @@
 import template from './Select.mustache';
 import app from './../../services/applicationService';
 import { changeSelect, toggleVisibility } from './../../actions/selectActions'
+import { getSources } from './../../actions/sourcesActions'
 import './Select.scss';
 import { addHtml, setText, subscribeOnClick } from './../../utils/domManipulation';
 
@@ -42,5 +43,6 @@ export default class Select {
 	_onItemClick({target}) {
 		const text = target.textContent.trim();
 		changeSelect(text);
+		getSources(text);
 	}
 }
