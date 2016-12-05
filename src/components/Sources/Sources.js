@@ -38,6 +38,7 @@ export default class Sources {
 			this._spinner.show();
 		} else {
 			this._showSources(model);
+			this._select.updateView(model);
 			this._spinner.hide();
 		}
 	}

@@ -1,13 +1,13 @@
 <div class="drop-down">
 	<button class="drop-down__button">
-		{{{active}}}
+		{{{category}}}
 		<span class="drop-down__caret" > </span>
 	</button>
-	<ul class="drop-down__list" style="visibility:{{visibility}}">
-		{{#items}}
+	<ul class="drop-down__list" style="visibility:{{categoriesVisibility}}">
+		{{#categories}}
 			<li class="drop-down__item">
 				{{{.}}}
 			</li>
-		{{/items}}
+		{{/categories}}
 	</ul>
 </div>
