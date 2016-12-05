@@ -37,16 +37,16 @@ module.exports = {
 
 	plugins: [
 		new webpack.NoErrorsPlugin(),
-		// new CleanWebpackPlugin('docs'),
+		new CleanWebpackPlugin('docs'),
 		new HtmlWebpackPlugin({
 			filename: path.resolve(__dirname, 'docs', 'index.html'),
 			template: path.resolve(__dirname, 'src', 'index.html'),
 		}),
-		// new webpack.optimize.UglifyJsPlugin({
-		// 	compress: {
-		// 		warnings: false,
-		// 	},
-		// }),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false,
+			},
+		}),
 		new webpack.DefinePlugin({
 			'enviroment': env,
 		}),
