@@ -1,26 +1,40 @@
 import Store from './../utils/Store';
-import {UPDATE_SOURCE} from './../constants/sources';
+import { GOT_SOURCES, GET_SOURCES } from './../constants/sources';
+import Source from './../components/Sources/Source/Source';
 
 export default class SourceStore extends Store {
     constructor() {
         super();
         this.handlers = {
-            [UPDATE_SOURCE]: 'updateSource'
+            [GOT_SOURCES]: 'gotSource',
+            [GET_SOURCES]: 'getSources',
         };
-        this._sources = [];
+        this._model = {
+            sources: [],
+            isLoading: false,
+        };
     }
 
-    static get storeName () {
+    static get storeName() {
         return 'SourceStore';
     }
 
-    updateSource(sources) {
-        this._sources = sources;
+    gotSource(response) {
+        response.sources.map((sourceInfo) => {
+            sourceInfo.source = new Source(sourceInfo);
+        });
+        this._model.sources = response.sources;
+        this._model.isLoading = false;
         return this.emitChange();
     }
 
-    get sources () {
-        return this._sources;
+    getSources() {
+        this._model.isLoading = true;
+        return this.emitChange();
+    }
+
+    get sources() {
+        return this._model;
     }
 
 }

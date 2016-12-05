@@ -30,6 +30,8 @@ export function delegateClick(parentClassName, targetClassName, callback) {
                 return;
             }
             target = target.parentNode;
+            if (!target)
+                return;
         }
     });
 }

@@ -1,8 +1,9 @@
-import { subscribeOnClick } from './../../utils/domManipulation';
+import { subscribeOnClick, addHtml } from './../../utils/domManipulation';
 import apiService from './../../services/apiService';
-import { timeAgo } from './../../utils/time';
-import navigationService from './../../services/navigationService';
-import BaseController from './../Base/BaseController';
+import { getArticles } from './../../actions/articlesActions';
+import { navigateToSources } from './../../actions/routeActions';
+import Spinner from './../Spinner/Spinner';
+import app from './../../services/applicationService';
 
 import template from './Articles.mustache';
 import './Articles.scss';
@@ -17,35 +18,42 @@ const titleSelector = `${baseSelector}__title`;
 const navigationSelectors = [imageSelector, titleSelector];
 const backButtonRoute = '#sources';
 
-export default class ArticlesControoller extends BaseController {
+export default class ArticlesControoller {
     constructor() {
-        super();
         this._id = location.hash.split('/')[1];
+        this._onArticlesChangedHandler = this._updateView.bind(this);
+        app.stores.ArticlesStore.addListener(this._onArticlesChangedHandler);
     }
 
     destructor() {
-        
+        app.stores.ArticlesStore.removeListener(this._onArticlesChangedHandler);
     }
 
     render(elementSelector) {
-        super.render(elementSelector);
+        this._selecotor = elementSelector;
+        this._spinner = new Spinner(elementSelector);
+        getArticles(this._id);
     }
 
-    get template() {
-        return template;
+    _updateView(articlesStore) {
+        const model = articlesStore.articles;
+        if (model.isLoading) {
+            this._spinner.show();
+        } else {
+            this._spinner.hide();
+            this.showArticles(model);
+        }
     }
 
-    loadData() {
-        return apiService.getArticles(this._id);
-    }
-
-    processWithResponse(response) {
-        response.articles.forEach((article) => article.timeAgo = timeAgo(new Date(article.publishedAt)));
+    showArticles(model) {
+        const html = template.render(model);
+        addHtml(this._selecotor, html);
+        this.bindActions();
     }
 
     bindActions() {
         subscribeOnClick(baseSelector, this._onArticleClick.bind(this));
-        subscribeOnClick(backButtonSelector, () => navigationService.navigateTo(backButtonRoute));
+        subscribeOnClick(backButtonSelector, navigateToSources);
     }
 
     _onArticleClick({currentTarget, target}) {
@@ -54,6 +62,5 @@ export default class ArticlesControoller extends BaseController {
             const win = window.open(href, '_blank');
             win.focus();
         }
-        
     }
 }

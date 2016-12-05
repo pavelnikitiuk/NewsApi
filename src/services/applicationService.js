@@ -1,8 +1,8 @@
 import Application from './../utils/Application';
-import SourceStore from './../stores/SourceStore';
+import stores from './../stores';
 import Dispatcher from './../utils/Dispatcher';
 
 export default new Application ({
-    stores: [SourceStore],
+    stores,
     dispatcher: new Dispatcher(),
 })

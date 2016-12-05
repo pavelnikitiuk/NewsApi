@@ -1,10 +1,9 @@
-import { delegateClick } from './../../utils/domManipulation';
-import apiService from './../../services/apiService';
-import navigationService from './../../services/navigationService';
-import BaseController from './../Base/BaseController';
+import { delegateClick, addHtml } from './../../utils/domManipulation';
 import app from './../../services/applicationService';
-import { updateSources } from './../../actions/sourcesActions';
+import { getSources } from './../../actions/sourcesActions';
 import Source from './Source/Source';
+import Spinner from './../Spinner/Spinner';
+import {navigateToArticles} from './../../actions/routeActions';
 
 import template from './Sources.mustache';
 import './Sources.scss';
@@ -13,41 +12,31 @@ const baseClassName = 'sources';
 const baseSelector = `.${baseClassName}`;
 const sourceClassName = 'source';
 
-export default class SourcesController extends BaseController {
+export default class SourcesController {
 
     constructor() {
-        super();
-        this._onDataRecivedHandler = this.onDataRecived.bind(this);
-        app.stores.SourceStore.addListener(this._onDataRecivedHandler);
+        this._onUpdateView = this.updateView.bind(this);
+        app.stores.SourceStore.addListener(this._onUpdateView);
     }
 
     destructor() {
-        app.stores.SourceStore.removeListener(this._onDataRecivedHandler);
+        app.stores.SourceStore.removeListener(this._onUpdateView);
     }
 
     render(elementSelector) {
-        super.render(elementSelector);
+        this._selecotor = elementSelector;
+        this._spinner = new Spinner(elementSelector);
+        getSources();
     }
 
-    get template() {
-        return template;
-    }
-
-    onDataRecived(SourceStore) {
-        super.onDataRecived(SourceStore.sources);
-    }
-
-    loadData() {
-        return apiService.getSources().then((data) => updateSources(data));
-    }
-
-    processWithResponse(response) {
-        this._sources = response.sources.map((sourceInfo) => {
-            const source = new Source(sourceInfo);
-            sourceInfo.html = source.html;
-            return source;
-        });
-
+    updateView(SourceStore) {
+        const model = SourceStore.sources;
+        if(model.isLoading) {
+            this._spinner.show();
+        } else {
+            this.showSources(model);
+            this._spinner.hide();
+        }
     }
 
     bindActions() {
@@ -56,6 +45,13 @@ export default class SourcesController extends BaseController {
 
     _onSourceClick(target) {
         const id = target.getAttribute('data-id');
-        navigationService.navigateTo(`#news/${id}`);
+        navigateToArticles(id);
+    }
+
+    showSources(model) {
+       
+        const html = template.render(model);
+        addHtml(this._selecotor, html);
+        this.bindActions();
     }
 }

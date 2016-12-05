@@ -1,5 +1,7 @@
 import configuration from './../configuration';
 import RequestBuilder from './apiRequestBuilder';
+import { gotSources } from './../actions/sourcesActions';
+import { gotArticles } from './../actions/articlesActions';
 
 class apiService {
     constructor(apiPrefix, apiKey) {
@@ -11,7 +13,8 @@ class apiService {
         return new RequestBuilder()
             .addUrl(`${this._apiPrefix}sources`)
             .addQuery('language=en')
-            .send();
+            .send()
+            .then((response) => gotSources(response));
     }
 
     getArticles(id) {
@@ -19,7 +22,8 @@ class apiService {
             .addUrl(`${this._apiPrefix}articles`)
             .addQuery(`apiKey=${this._apiKey}`)
             .addQuery(`source=${id}`)
-            .send();
+            .send()
+            .then((response) => gotArticles(response));;
     }
 }
 

@@ -1,4 +1,6 @@
-import { routesFactory, matchRoutes } from './routesProvider';
+import { routesFactory, findRoute } from './routesProvider';
+import app from './../services/applicationService';
+import { routeNotFound, routeChanged } from './../actions/routeActions';
 
 class navigationService {
     constructor(routes, rootSelector, basePath) {
@@ -8,33 +10,33 @@ class navigationService {
     }
 
     initialize() {
-        const href = location.hash;
-        this.navigateTo(href);
+        const hash = location.hash;
         window.addEventListener('popstate', this._onStateChangedHandler.bind(this), false);
+        app.stores.RouteStore.addListener(this.updateRoute.bind(this));
+        this._onStateChangedHandler({ state: { hash } });
     }
 
-    navigateTo(hash, updateState = true) {
-        const controllerFactory = matchRoutes(this._routes, hash);
-        if (controllerFactory) {
-            if (updateState) {
-                history.pushState({
-                    hash,
-                }, null, hash);
-            }
-            controllerFactory((Controller) => {
-                this._controller && this._controller.destructor();
-                this._controller = new Controller.default();
-                this._controller.render(this._selector);
-            })
-        } else {
-            this.navigateTo(this._hash);
+    updateRoute(routeStore) {
+        const route = routeStore.route;
+        this.navigateTo(route);
+    }
+
+    navigateTo(route, updateState = true) {
+        const hash = route.hash;
+        if (updateState) {
+            history.pushState({
+                hash,
+            }, null, hash);
         }
+        this._controller && this._controller.destructor();
+        this._controller = new route.Controller(route.routePath);
+        this._controller.render(this._selector);
 
     }
 
     _onStateChangedHandler(event) {
         if (event && event.state) {
-            this.navigateTo(event.state.hash, false);
+            routeChanged(event.state.hash);
         }
     }
 }
