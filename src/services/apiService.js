@@ -9,11 +9,14 @@ class apiService {
         this._apiKey = apiKey;
     }
 
-    getSources() {
-        return new RequestBuilder()
+    getSources(category) {
+        const request = new RequestBuilder()
             .addUrl(`${this._apiPrefix}sources`)
             .addQuery('language=en')
-            .send()
+        if (category !== 'all') {
+            request.addQuery(`category=${category}`);
+        }
+        request.send()
             .then((response) => gotSources(response));
     }
 

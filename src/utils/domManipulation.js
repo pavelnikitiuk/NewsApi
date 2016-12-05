@@ -21,6 +21,10 @@ export function find(querySelector) {
     return document.querySelectorAll(querySelector);
 }
 
+export function setText(querySelector, text) {
+    manipulateWithElements(querySelector, (element) => element.textContent = text);
+}
+
 export function delegateClick(parentClassName, targetClassName, callback) {
     subscribeOnClick(parentClassName, (event) => {
         var target = event.target;

@@ -12,6 +12,7 @@ export default class SourceStore extends Store {
         this._model = {
             sources: [],
             isLoading: false,
+            category: 'all',
         };
     }
 
@@ -28,7 +29,8 @@ export default class SourceStore extends Store {
         return this.emitChange();
     }
 
-    getSources() {
+    getSources(category) {
+        this._model.category = category;
         this._model.isLoading = true;
         return this.emitChange();
     }

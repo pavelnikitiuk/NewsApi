@@ -3,9 +3,9 @@ import app from './../services/applicationService';
 import apiService from './../services/apiService';
 
 
-export function getSources() {
-    app.dispatcher.dispatch(GET_SOURCES);
-    apiService.getSources();
+export function getSources(category) {
+    app.dispatcher.dispatch(GET_SOURCES, category);
+    apiService.getSources(category);
 }
 
 export function gotSources(sources) {
