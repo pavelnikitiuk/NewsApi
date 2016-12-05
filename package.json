@@ -28,9 +28,7 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3",
     "webpack-polyfills-plugin": "0.0.9",
-    "whatwg-fetch": "^2.0.1"
-  },
-  "devDependencies": {
+    "whatwg-fetch": "^2.0.1",
     "clean-webpack-plugin": "^0.1.14"
   }
 }
