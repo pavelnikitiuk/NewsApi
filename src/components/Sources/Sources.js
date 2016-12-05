@@ -4,6 +4,7 @@ import { getSources } from './../../actions/sourcesActions';
 import Spinner from './../Spinner/Spinner';
 import { navigateToArticles } from './../../actions/routeActions';
 import Select from './../Select/Select';
+import Component from './../Base/Component';
 
 import template from './Sources.mustache';
 import './Sources.scss';
@@ -13,37 +14,43 @@ const baseSelector = `.${baseClassName}`;
 const sourceClassName = 'source';
 const selectSelector = '.select';
 
-export default class Sources {
+export default class Sources extends Component {
 
 	constructor() {
-		this._onUpdateView = this._updateView.bind(this);
+		super();
+		this._onUpdateView = this._storeChanged.bind(this);
 		this._select = new Select();
 		app.stores.SourceStore.addListener(this._onUpdateView);
 	}
 
 	destructor() {
 		app.stores.SourceStore.removeListener(this._onUpdateView);
-		this._select.destructor();
 	}
 
 	render(elementSelector) {
-		this._selecotor = elementSelector;
+		this._selector = elementSelector;
 		this._spinner = new Spinner(elementSelector);
+		addHtml(this._selector, '');
+		this._select.render(selectSelector);
 		getSources(app.stores.SourceStore.sources.category);
 	}
 
-	_updateView(SourceStore) {
+	get template() {
+		return template;
+	}
+
+	_storeChanged(SourceStore) {
 		const model = SourceStore.sources;
 		if (model.isLoading) {
 			this._spinner.show();
 		} else {
-			this._showSources(model);
-			this._select.updateView(model);
+			this.updateView({ sources: model.sources });
+			this._select.updateView({ category: model.category, categories: model.categories, categoriesVisibility: model.categoriesVisibility });
 			this._spinner.hide();
 		}
 	}
 
-	_bindActions() {
+	bindActions() {
 		delegateClick(baseSelector, sourceClassName, this._onSourceClick.bind(this));
 	}
 
@@ -52,10 +59,10 @@ export default class Sources {
 		navigateToArticles(id);
 	}
 
-	_showSources(model) {
-		const html = template.render(model);
-		addHtml(this._selecotor, html);
-		this._select.render(selectSelector);
-		this._bindActions();
-	}
+	// _showSources(model) {
+	// 	const html = template.render(model);
+	// 	addHtml(this._selecotor, html);
+	// 	this._select.render(selectSelector);
+	// 	this._bindActions();
+	// }
 }

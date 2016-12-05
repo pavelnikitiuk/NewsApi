@@ -25,9 +25,9 @@ export default class SourceStore extends Store {
 	}
 
 	gotSource(response) {
-		response.sources.map((sourceInfo) =>
-			sourceInfo.source = new Source(sourceInfo));
-		this._model.sources = response.sources;
+		this._model.sources = response.sources.map((sourceInfo) => ({
+			html: new Source(sourceInfo).html,
+		 }));
 		this._model.isLoading = false;
 		return this.emitChange();
 	}
@@ -43,6 +43,7 @@ export default class SourceStore extends Store {
 
 	getSources(category) {
 		this._model.category = category;
+		this._model.categoriesVisibility = 'hidden';
 		this._model.isLoading = true;
 		return this.emitChange();
 	}
