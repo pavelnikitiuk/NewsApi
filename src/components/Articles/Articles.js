@@ -13,9 +13,9 @@ const baseClassName = 'article';
 const baseSelector = `.${baseClassName}`;
 const hrefClassName = `${baseClassName}__more`;
 const backButtonSelector = '.back-button';
-const imageSelector = `${baseSelector}__image`;
-const titleSelector = `${baseSelector}__title`;
-const navigationSelectors = [imageSelector, titleSelector];
+const imageClassName = `${baseClassName}__image`;
+const titleClassName = `${baseClassName}__title`;
+const navigationSelectors = [imageClassName, titleClassName];
 const backButtonRoute = '#sources';
 
 export default class ArticlesControoller {

@@ -12,7 +12,7 @@ const baseClassName = 'sources';
 const baseSelector = `.${baseClassName}`;
 const sourceClassName = 'source';
 
-export default class SourcesController {
+export default class Sources {
 
     constructor() {
         this._onUpdateView = this.updateView.bind(this);

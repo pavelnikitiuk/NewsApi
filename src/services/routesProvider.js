@@ -5,15 +5,15 @@ export function routesFactory() {
         {
             path: '#sources',
             controller: (callback) => require.ensure (
-                ['./../components/Sources/SourcesController'],
-                (require) => callback(require('./../components/Sources/SourcesController').default),
+                ['./../components/Sources/Sources'],
+                (require) => callback(require('./../components/Sources/Sources').default),
                 '1'),
         },
         {
             path: /#articles\/.+/,
             controller: (callback) => require.ensure (
-                ['./../components/Articles/ArticlesController'],
-                (require) => callback(require('./../components/Articles/ArticlesController').default),
+                ['./../components/Articles/Articles'],
+                (require) => callback(require('./../components/Articles/Articles').default),
                 '2'),
         },
     ]);
