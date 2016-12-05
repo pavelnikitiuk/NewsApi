@@ -2,7 +2,7 @@ export default class AbstractClass {
 	constructor(methods = [], getProperties = [], setProperties = []) {
 		this._checkMethods(methods);
 		this._checkGetProperties(getProperties);
-		this._checkSetProperties(setProperties)
+		this._checkSetProperties(setProperties);
 	}
 	_checkMethods(methods) {
 		for (const method of methods) {
@@ -28,5 +28,3 @@ export default class AbstractClass {
 		}
 	}
 }
-
-

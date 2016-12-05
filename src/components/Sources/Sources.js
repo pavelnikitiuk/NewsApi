@@ -1,9 +1,8 @@
 import { delegateClick, addHtml } from './../../utils/domManipulation';
 import app from './../../services/applicationService';
-import { getSources, changeCategory } from './../../actions/sourcesActions';
-import Source from './Source/Source';
+import { getSources } from './../../actions/sourcesActions';
 import Spinner from './../Spinner/Spinner';
-import {navigateToArticles} from './../../actions/routeActions';
+import { navigateToArticles } from './../../actions/routeActions';
 import Select from './../Select/Select';
 
 import template from './Sources.mustache';
@@ -16,46 +15,46 @@ const selectSelector = '.select';
 
 export default class Sources {
 
-    constructor() {
-        this._onUpdateView = this.updateView.bind(this);
-        this._select = new Select();
-        app.stores.SourceStore.addListener(this._onUpdateView);
-    }
+	constructor() {
+		this._onUpdateView = this.updateView.bind(this);
+		this._select = new Select();
+		app.stores.SourceStore.addListener(this._onUpdateView);
+	}
 
-    destructor() {
-        app.stores.SourceStore.removeListener(this._onUpdateView);
-        this._select.destructor();
-    }
+	destructor() {
+		app.stores.SourceStore.removeListener(this._onUpdateView);
+		this._select.destructor();
+	}
 
-    render(elementSelector) {
-        this._selecotor = elementSelector;
-        this._spinner = new Spinner(elementSelector);
-        getSources(app.stores.SourceStore.sources.category);
-    }
+	render(elementSelector) {
+		this._selecotor = elementSelector;
+		this._spinner = new Spinner(elementSelector);
+		getSources(app.stores.SourceStore.sources.category);
+	}
 
-    updateView(SourceStore) {
-        const model = SourceStore.sources;
-        if(model.isLoading) {
-            this._spinner.show();
-        } else {
-            this.showSources(model);
-            this._spinner.hide();
-        }
-    }
+	updateView(SourceStore) {
+		const model = SourceStore.sources;
+		if (model.isLoading) {
+			this._spinner.show();
+		} else {
+			this.showSources(model);
+			this._spinner.hide();
+		}
+	}
 
-    bindActions() {
-        delegateClick(baseSelector, sourceClassName, this._onSourceClick.bind(this));
-    }
+	bindActions() {
+		delegateClick(baseSelector, sourceClassName, this._onSourceClick.bind(this));
+	}
 
-    _onSourceClick(target) {
-        const id = target.getAttribute('data-id');
-        navigateToArticles(id);
-    }
+	_onSourceClick(target) {
+		const id = target.getAttribute('data-id');
+		navigateToArticles(id);
+	}
 
-    showSources(model) {
-        const html = template.render(model);
-        addHtml(this._selecotor, html);
-        this._select.render(selectSelector);
-        this.bindActions();
-    }
+	showSources(model) {
+		const html = template.render(model);
+		addHtml(this._selecotor, html);
+		this._select.render(selectSelector);
+		this.bindActions();
+	}
 }

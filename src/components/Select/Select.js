@@ -1,9 +1,9 @@
 import template from './Select.mustache';
 import app from './../../services/applicationService';
-import { changeSelect, toggleVisibility } from './../../actions/selectActions'
-import { getSources } from './../../actions/sourcesActions'
+import { changeSelect, toggleVisibility } from './../../actions/selectActions';
+import { getSources } from './../../actions/sourcesActions';
 import './Select.scss';
-import { addHtml, setText, subscribeOnClick } from './../../utils/domManipulation';
+import { addHtml, subscribeOnClick } from './../../utils/domManipulation';
 
 const baseClassName = 'drop-down';
 const baseSelector = `.${baseClassName}`;
@@ -14,7 +14,6 @@ export default class Select {
 	constructor() {
 		this._onChangeHandler = this._onChange.bind(this);
 		app.stores.SelectStore.addListener(this._onChangeHandler);
-
 	}
 
 	destructor() {
@@ -40,7 +39,7 @@ export default class Select {
 		subscribeOnClick(this._itemSelector, this._onItemClick.bind(this));
 	}
 
-	_onItemClick({target}) {
+	_onItemClick({ target }) {
 		const text = target.textContent.trim();
 		changeSelect(text);
 		getSources(text);

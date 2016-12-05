@@ -1,15 +1,15 @@
 import Observer from './Observer';
 
 export default class Dispatcher {
-    constructor () {
-        this._observer = new Observer();
-    }
+	constructor() {
+		this._observer = new Observer();
+	}
 
-    registerStore(store) {
-        this._observer.subscribe(store.handleAction.bind(store));
-    }
+	registerStore(store) {
+		this._observer.subscribe(store.handleAction.bind(store));
+	}
 
-    dispatch(actionType, payload) {
-        this._observer.publish({actionType, payload});
-    }
+	dispatch(actionType, payload) {
+		this._observer.publish({ actionType, payload });
+	}
 }

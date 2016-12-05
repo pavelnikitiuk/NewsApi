@@ -1,6 +1,6 @@
 import Abstract from './AbstractClass';
 import Spinner from './../Spinner/Spinner';
-import { addHtml, subscribeOnClick } from './../../utils/domManipulation';
+import { addHtml } from './../../utils/domManipulation';
 const abstractMethods = ['loadData', 'bindActions', 'destructor'];
 const abstractGetters = ['template'];
 
@@ -19,10 +19,11 @@ export default class BaseController extends Abstract {
 
 	onDataRecived(response) {
 		this._spinner.hide();
-		if (typeof (this.processWithResponse) === "function")
+		if (typeof (this.processWithResponse) === 'function') {
 			this.processWithResponse(response);
+		}
 		const templateHtml = this.template.render(response);
 		addHtml(this._selecotor, templateHtml);
 		this.bindActions();
 	}
-} 
+}
